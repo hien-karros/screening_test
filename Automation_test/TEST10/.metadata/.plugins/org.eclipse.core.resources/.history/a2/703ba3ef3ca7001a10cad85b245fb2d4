@@ -1,0 +1,120 @@
+package Test.TestCase;
+
+import static org.testng.Assert.assertEquals;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.annotations.BeforeSuite;
+import org.testng.annotations.Test;
+import Test.Action.HomepageAction;
+import Test.Action.LoginAction;
+import Test.Object.BaseClass;
+import Test.Object.Login;
+import Test.Utility.utility;
+
+/**
+ * Author: Hien Cao
+ */
+public class TestCase {
+
+	public static WebDriver driver = null;
+	public WebDriverWait checkWaitExplicit, checkWaitExplicit2;
+
+	// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+	// Configuration and initial for web
+	@BeforeSuite
+	public void initializeWeb() throws InterruptedException {
+		System.setProperty("webdriver.chrome.driver", System.getProperty("user.dir") + "/driver/chromedriver.exe");
+		driver = new ChromeDriver();
+		driver.get("http://ktvn-test.s3-website.us-east-1.amazonaws.com/");
+		checkWaitExplicit = new WebDriverWait(driver, 10);
+		new BaseClass(driver);
+	//	BaseClass.Delay(2500);
+	}
+
+	// Test1: Login
+	@Test
+	public void test1() throws Exception {
+
+		/*
+		 * Wait for visibility of login page
+		 */
+		checkWaitExplicit.until(ExpectedConditions.visibilityOf(Login.txt_UserName()));
+
+		/*
+		 * Login page
+		 */
+		LoginAction.loginToSystem();
+
+		// delay time
+//		BaseClass.Delay(1000);
+
+		/*
+		 * Verify Admin login successfully or not
+		 */
+		boolean expect = true;
+		boolean actual = (HomepageAction.check_Header(utility.Header_Homepage)
+				&& HomepageAction.check_LoginAccount(utility.Account_Admin));
+		assertEquals(actual, expect);
+
+	}
+
+	// Test2: Verify Filter
+	@Test
+	public void test2() throws Exception {
+
+		/*
+		 * Call method to filter Request Status being Inactive
+		 */
+		HomepageAction.filterStatus(utility.Status_Inactive);
+
+		/*
+		 * Verify all Request Statuses from Table being Inactive. If any status is NOT
+		 * Inactive: actual is equal to false
+		 * 
+		 */
+		boolean expect = true;
+		boolean actual = HomepageAction.check_List_Status_from_Table(utility.Status_Inactive);
+		assertEquals(actual, expect);
+
+	}
+
+	// Test3: Verify Sort
+	@Test
+	public void test3() throws Exception {
+		boolean actual = false;
+		boolean expect = true;
+		boolean actualSortFirstTime = false;
+		boolean actualSortSecondTime = false;
+		// delay time
+//		BaseClass.Delay(500);
+		/*
+		 * Sort at First Time
+		 */
+		// Click on Sort
+		HomepageAction.click_sort_First_Name();
+		// Verify sort result in table
+		actualSortFirstTime = HomepageAction.check_sort_FirstName(HomepageAction.get_list_FirstName(),
+				HomepageAction.get_Type_of_Sort_FirstName());
+
+		// delay time
+//		BaseClass.Delay(200);
+
+		/*
+		 * Sort at Second Time
+		 */
+		// Click on Sort
+		HomepageAction.click_sort_First_Name();
+		// Verify sort result in table
+		actualSortSecondTime = HomepageAction.check_sort_FirstName(HomepageAction.get_list_FirstName(),
+				HomepageAction.get_Type_of_Sort_FirstName());
+		
+		/*
+		 * Actual Result
+		 */
+		actual = (actualSortFirstTime && actualSortSecondTime);
+		
+		assertEquals(actual, expect);
+	}
+}

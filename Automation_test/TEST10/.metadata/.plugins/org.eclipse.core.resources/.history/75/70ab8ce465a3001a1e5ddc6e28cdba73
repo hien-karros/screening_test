@@ -1,0 +1,76 @@
+package Test.Object;
+
+import org.openqa.selenium.*;
+
+import Test.Log.Log;
+import Test.Utility.utility;
+
+public class Login extends BaseClass {
+
+	private static WebElement element = null;
+
+	public Login(WebDriver driver) {
+
+		super(driver);
+	}
+
+	public static WebElement txt_UserName() throws Exception {
+
+		try {
+
+			element = driver.findElement(By.id("formHorizontalEmail"));
+
+			Log.info("Username text box is found on the Login Page");
+
+		} catch (Exception e) {
+
+			Log.error("UserName text box is not found on the Login Page");
+
+			throw (e);
+
+		}
+
+		return element;
+
+	}
+	
+	public static WebElement txt_Pass() throws Exception {
+
+		try {
+			element = driver.findElement(By.id("formHorizontalPassword"));
+
+			Log.info("Password text box is found on the Login Page");
+
+		} catch (Exception e) {
+
+			Log.error("Password text box is not found on the Login Page");
+
+			throw (e);
+
+		}
+
+		return element;
+
+	}
+	public static WebElement btn_Login() throws Exception {
+
+		try {
+			element = driver.findElement(By.xpath("//a[@class='col-login__btn']"));
+
+			Log.info("Login button is found on the Login Page");
+
+		} catch (Exception e) {
+
+			Log.error("Login button is found on the Login Page");
+
+			throw (e);
+
+		}
+
+		return element;
+
+	}
+	
+	
+	
+}

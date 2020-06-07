@@ -1,0 +1,118 @@
+package Test.TestCase;
+
+import static org.testng.Assert.assertEquals;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.annotations.BeforeSuite;
+import org.testng.annotations.Test;
+import Test.Action.HomepageAction;
+import Test.Action.LoginAction;
+import Test.Object.BaseClass;
+import Test.Object.Login;
+import Test.Utility.utility;
+
+/**
+ * Author: Hien Cao
+ */
+public class TestCase {
+
+	public static WebDriver driver = null;
+	public WebDriverWait checkWaitExplicit, checkWaitExplicit2;
+
+	// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+	// Configuration and initial for web
+	@BeforeSuite
+	public void initializeWeb() throws InterruptedException {
+		System.setProperty("webdriver.chrome.driver", "D:\\Automation Testing\\TEST10\\Test\\driver\\chromedriver.exe");
+
+		driver = new ChromeDriver();
+		driver.get("http://ktvn-test.s3-website.us-east-1.amazonaws.com/");
+		checkWaitExplicit = new WebDriverWait(driver, 10);
+		new BaseClass(driver);
+		BaseClass.Delay(100);
+	}
+
+	// Test1: Login
+	@Test
+	public void test1() throws Exception {
+
+		/*
+		 * Wait for visibility of login page
+		 */
+		checkWaitExplicit.until(ExpectedConditions.visibilityOf(Login.txt_UserName()));
+
+		/*
+		 * Login page
+		 */
+		LoginAction.loginToSystem();
+
+		// delay time
+		BaseClass.Delay(5000);
+
+		/*
+		 * Verify Admin login successfully or not
+		 */
+		boolean expect = true;
+		boolean actual = (HomepageAction.check_Header(utility.Header_Homepage)
+				&& HomepageAction.check_LoginAccount(utility.Account_Admin));
+		assertEquals(actual, expect);
+
+	}
+
+	// Test2: Verify Filter
+	@Test
+	public void test2() throws Exception {
+		// delay time
+		BaseClass.Delay(5000);
+
+		/*
+		 * Call method to filter Request Status being Inactive
+		 */
+		HomepageAction.filterStatus(utility.Status_Inactive);
+		
+		/*
+		 * Verify all Request Statuses from Table being Inactive. 
+		 * If any status is NOT Inactive: actual is equal to false
+		 * 
+		 */
+		boolean expect = true;
+		boolean actual = HomepageAction.check_List_Status_from_Table(utility.Status_Inactive);
+		assertEquals(actual, expect);
+
+	}
+	
+	
+
+	// Test3: Verify Sort
+	@Test
+	public void test3() throws Exception {
+		// delay time
+		BaseClass.Delay(5000);
+
+		/*
+		 * Click on Sort
+		 */
+		
+		
+		/*
+		 * Print Type of Sort and verify sort result in table
+		 * 
+		 */
+	
+		
+		
+		/*
+		 * Click on Sort
+		 */
+		
+		
+		/*
+		 * Print Type of Sort and verify sort result in table
+		 * 
+		 */
+		
+
+	}
+}

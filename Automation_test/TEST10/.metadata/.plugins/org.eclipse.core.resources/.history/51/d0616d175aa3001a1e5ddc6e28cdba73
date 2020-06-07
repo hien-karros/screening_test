@@ -1,0 +1,35 @@
+package Test.Object;
+
+import org.openqa.selenium.*;
+
+import Test.Log.Log;
+
+public class Login extends BaseClass {
+
+	private static WebElement element = null;
+
+	public Login(WebDriver driver) {
+
+		super(driver);
+	}
+
+	public static WebElement txtbx_UserName() throws Exception {
+
+		try {
+
+			element = driver.findElement(By.id("log"));
+
+			Log.info("Username text box is found on the Login Page");
+
+		} catch (Exception e) {
+
+			Log.error("UserName text box is not found on the Login Page");
+
+			throw (e);
+
+		}
+
+		return element;
+
+	}
+}

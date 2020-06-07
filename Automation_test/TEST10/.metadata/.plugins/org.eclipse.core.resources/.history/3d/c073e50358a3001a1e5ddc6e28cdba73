@@ -1,0 +1,13 @@
+package Test.Object;
+import org.openqa.selenium.*;
+public class Login extends BaseClass{
+	 
+		 
+         private static WebElement element = null;
+
+      public LoginPage(WebDriver driver){
+
+          	super(driver);
+      }
+        
+}

@@ -1,0 +1,6 @@
+package Test.Utility;
+
+public class utility {
+
+	public static String Email = "admin@test.com";
+}

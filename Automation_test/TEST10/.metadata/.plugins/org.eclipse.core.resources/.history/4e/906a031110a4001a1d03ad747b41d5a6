@@ -1,0 +1,11 @@
+package Test.Utility;
+
+public class utility {
+
+	public static String Email = "admin@test.com";
+	
+	public static String Password = "test123" ;
+	
+	
+	public static String Header_Homepage = "[ Parent Portal ]";
+}

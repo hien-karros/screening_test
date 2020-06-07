@@ -1,0 +1,64 @@
+package Test.Object;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+
+import Test.Log.Log;
+
+
+public class Homepage extends BaseClass
+{
+	private static WebElement element = null;
+
+	public Homepage(WebDriver driver) {
+		super(driver);
+	}
+
+	public static WebElement lb_Header()  {
+		try {
+			element = driver.findElement(By.xpath("//a[@class='navbar-brand']"));
+		} catch (Exception e) {
+			System.out.println("Not found Header in Homepage");
+		}			
+		return element;
+	}
+	
+	public static WebElement lb_Account()  {
+		try {
+			element = driver.findElement(By.xpath("//a[@id='basic-nav-dropdown']"));
+		} catch (Exception e) {
+			System.out.println("Not found Profile in Homepage");
+		}	
+	return element;
+}
+
+	public static WebElement btn_Filter()  {
+		try {
+			element = driver.findElement(By.xpath("//button[@class='btn btn-filter module_grid__btn_filter btn btn-default']"));
+		} catch (Exception e) {
+			System.out.println("Not found Filter button in Homepage");
+		}		
+	return element;
+}
+	public static WebElement sel_RequestStatus()  {
+		try {
+			element = driver.findElement(By.xpath("//button[@class='btn btn-filter module_grid__btn_filter btn btn-default']"));
+		} catch (Exception e) {
+			System.out.println("Not found Filter button in Homepage");
+		}		
+	return element;
+}
+	
+	public static WebElement btn_ApplyFilter()  {
+		try {
+			element = driver.findElement(By.xpath("//button[@class=\"btn-filter btn btn-default\"]"));
+		} catch (Exception e) {
+			System.out.println("Not found Apply Filter button in Filter dialog");
+		}		
+	return element;
+}
+	
+	
+	
+}

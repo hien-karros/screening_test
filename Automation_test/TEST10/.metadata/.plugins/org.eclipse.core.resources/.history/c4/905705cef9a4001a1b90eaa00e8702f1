@@ -1,0 +1,175 @@
+package Test.Action;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.Select;
+import Test.Object.BaseClass;
+import Test.Object.Homepage;
+import Test.Utility.utility;
+
+public class HomepageAction {
+
+	public static String get_Header() {
+		String st = Homepage.lb_Header().getText();
+		return st;
+	}
+
+	public static String get_Account() {
+		String st = Homepage.lb_Account().getText();
+		return st;
+	}
+
+	public static boolean check_Header(String header) throws Exception {
+		boolean check = false;
+		if (header.equalsIgnoreCase(get_Header())) {
+			check = true;
+		}
+		return check;
+	}
+
+	public static boolean check_LoginAccount(String acc) throws Exception {
+		boolean check = false;
+		if (acc.equalsIgnoreCase(get_Account())) {
+			check = true;
+		}
+
+		return check;
+	}
+
+	public static void click_btn_filter() {
+		Homepage.btn_Filter().click();
+	}
+
+	public static void sel_request_status(String status) {
+		Select selStatus = new Select(Homepage.sel_RequestStatus());
+		selStatus.selectByVisibleText(status);
+	}
+
+	public static void click_btn_ApplyFilter() {
+		Homepage.btn_ApplyFilter().click();
+
+	}
+
+	// Produce steps of filter for status
+	public static void filterStatus(String status) throws InterruptedException {
+		click_btn_filter();
+		BaseClass.Delay(3000);
+		sel_request_status(status);
+		BaseClass.Delay(3000);
+		click_btn_ApplyFilter();
+
+	}
+
+	public static List<String> get_List_Status_from_Table() {
+		List<String> temp = new ArrayList<String>();
+		int i = 0;
+		for (i = 0; i < Homepage.rows_RequestStatus().size(); i++) {
+			temp.add(i, Homepage.rows_RequestStatus().get(i).getText());
+		}
+		return temp;
+	}
+
+	public static boolean check_List_Status_from_Table(String status) {
+		boolean check = true;
+
+		/*
+		 * After filter completed, verify visibility of tag as
+		 * "Request Status: Inactive"
+		 */
+		String tag = Homepage.tag_of_Filter().getText();
+		if (tag.equalsIgnoreCase(utility.Tag_of_Filter_Status_Inactive)) {
+
+			// If visibility of tag is equal to "Request Status: Inactive"
+			// => Check all request statuses from table
+			int i = 0;
+			for (i = 0; i < get_List_Status_from_Table().size(); i++) {
+				if (get_List_Status_from_Table().get(i).equalsIgnoreCase(status)) {
+					// if each status from table is equal to argument => set true
+					check = true;
+				} else {
+					// if any status from table is NOT equal to argument => set false
+					check = false;
+				}
+				if (check == false) {
+					// after set false, break down loop and return false
+					System.out.println("There is at least one request which has status NOT being Inactive");
+					break;
+				}
+			}
+
+		} else {
+			// Set false if visibility of tag is NOT equal to "Request Status: Inactive"
+			check = false;
+			System.out.println(
+					"After filter completed, visibility of tag is NOT found or NOT equal to \"Request Status: Inactive\"");
+		}
+
+		return check;
+	}
+
+	public static void click_sort_First_Name() {
+		Homepage.sort_First_Name().click();
+	}
+
+	public static String type_of_Sort_FirstName() {
+		String result = "";
+		String value_of_class = Homepage.type_sort_First_Name().getAttribute("class");
+
+		if (value_of_class.length() > 5) {
+			result="A-Z";
+			System.out.println("Sort A-Z");
+		} else {
+			result="Z-A";
+			System.out.println("Sort Z-A");
+		}
+		return result;
+	}
+
+	public static boolean check_Sort_FirstName(String result) {
+		boolean check = false;
+		 if (type_of_Sort_FirstName().equalsIgnoreCase("A-Z"))
+				 {
+			 // Check
+				 }
+		 
+		 if  (type_of_Sort_FirstName().equalsIgnoreCase("Z-A"))
+		 {
+			 // check
+		 }
+		return check;
+	}
+	public static List<String> get_list_FirstName()
+	{
+		int i=0;
+		List<String> listFirstName = new ArrayList<String>();
+		int range = Homepage.list_Tabindex().size();
+		for (i=5;i<=range;i+=10)
+		{
+			listFirstName.add(Homepage.list_Tabindex().get(i).getText());
+			System.out.println(Homepage.list_Tabindex().get(i).getText());
+		}
+		
+		return listFirstName;
+	}
+	public static boolean check_sort_FirstName(List<String> listFirstName)
+	{
+		// create "baseline list" which is sorted
+		// compare
+		
+		System.out.println("===================");
+		listFirstName.sort(null);
+		
+		// sort Z-A
+		for(int i = listFirstName.size(); i>0;i--)
+		{
+		System.out.println(listFirstName.get(i));
+		
+		}
+		boolean check = true;
+		
+		return check;
+	}
+
+}

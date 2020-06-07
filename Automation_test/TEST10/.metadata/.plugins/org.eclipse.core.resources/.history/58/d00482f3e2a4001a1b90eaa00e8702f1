@@ -1,0 +1,96 @@
+package Test.Object;
+
+import java.util.ArrayList;
+import java.util.List;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+
+
+public class Homepage extends BaseClass
+{
+	private static WebElement element = null;
+
+	public Homepage(WebDriver driver) {
+		super(driver);
+	}
+
+	// Header
+	public static WebElement lb_Header()  {
+		try {
+			element = driver.findElement(By.xpath("//a[@class='navbar-brand']"));
+		} catch (Exception e) {
+			System.out.println("Not found Header in Homepage");
+		}			
+		return element;
+	}
+	
+	//Account in profile
+	public static WebElement lb_Account()  {
+		try {
+			element = driver.findElement(By.xpath("//a[@id='basic-nav-dropdown']"));
+		} catch (Exception e) {
+			System.out.println("Not found Profile in Homepage");
+		}	
+	return element;
+}
+
+	// Filter button
+	public static WebElement btn_Filter()  {
+		try {
+			element = driver.findElement(By.xpath("//button[@class='btn btn-filter module_grid__btn_filter btn btn-default']"));
+		} catch (Exception e) {
+			System.out.println("Not found Filter button in Homepage");
+		}		
+	return element;
+}
+	// Request status selection in Filter dialog
+	public static WebElement sel_RequestStatus()  {
+		try {
+			element = driver.findElement(By.xpath("//select[@id='formControlsSelect']"));
+		} catch (Exception e) {
+			System.out.println("Not found Status selection in Filter dialog");
+		}		
+	return element;
+}
+	// Apply Filter button
+	public static WebElement btn_ApplyFilter()  {
+		try {
+			element = driver.findElement(By.xpath("//button[@class=\"btn-filter btn btn-default\"]"));
+		} catch (Exception e) {
+			System.out.println("Not found Apply Filter button in Filter dialog");
+		}		
+	return element;
+}
+	//List of request statuses from table
+	public static List<WebElement> rows_RequestStatus()  {
+		List<WebElement> a = new ArrayList<WebElement>();
+		try {
+			a= driver.findElements(By.xpath("//descendant::div[@class='ct-drop-group dropdown btn-group']/p"));
+		} catch (Exception e) {
+			System.out.println("Not found all Request Statuses from table");
+		}		
+	return a;
+}
+	
+	// Apply Filter button
+	public static WebElement tag_of_Filter()  {
+		try {
+			element = driver.findElement(By.xpath("//div[@class='query__filter']//a"));
+		} catch (Exception e) {
+			System.out.println("Not found visibility of tag after filter completed");
+		}		
+	return element;
+}
+	
+	
+	// Header of First Name column 
+		public static WebElement header_First_Name()  {
+			try {
+				element = driver.findElement(By.xpath("//th[@class='sort-column' and text()='First Name']"));
+			} catch (Exception e) {
+				System.out.println("Not found Header of First Name column");
+			}		
+		return element;
+	}
+}

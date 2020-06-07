@@ -1,0 +1,24 @@
+package Test.Action;
+
+import Test.Object.Login;
+import Test.Utility.utility;
+
+public class LoginAction {
+	public static void input_Email (String email) 
+	{
+		Login.txt_UserName().sendKeys("123");
+	}
+
+	
+	public static void input_Pass (String pass) 
+	{
+		Login.txt_Pass().sendKeys("123");
+	}
+	
+	public static void click_Login () throws Exception
+	{
+		Login.btn_Login().click();
+	}
+	
+
+}

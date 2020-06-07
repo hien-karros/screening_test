@@ -1,0 +1,44 @@
+package Test.Object;
+
+import org.openqa.selenium.*;
+
+import Test.Log.Log;
+import Test.Utility.utility;
+
+public class Login extends BaseClass {
+
+	private static WebElement element = null;
+
+	public Login(WebDriver driver) {
+
+		super(driver);
+	}
+
+	public static WebElement txt_UserName()  {
+
+			element = driver.findElement(By.xpath("//input[@id='formHorizontalEmail']"));	
+	
+		return element;
+
+	}
+	
+	public static WebElement txt_Pass()  {
+
+		
+			element = driver.findElement(By.id("formHorizontalPassword"));
+
+		return element;
+
+	}
+	public static WebElement btn_Login() throws Exception {
+
+		
+			element = driver.findElement(By.xpath("//a[@class='col-login__btn']"));
+
+		return element;
+
+	}
+	
+	
+	
+}
